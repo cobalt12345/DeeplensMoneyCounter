@@ -1,0 +1,7 @@
+boto3
+awscli
+sagemaker
+sklearn
+matplotlib
+mxnet
+labelbox
