@@ -80,4 +80,6 @@ Useful information can be found in AWS article
 function, re-import model, and update AWS DeepLens project before its re-deployment to the device.<br/>
 :warning: Sometimes device demonstrates a weird behavior - you re-deployed the model, but it predicts the same way.<br/>
 Try to back up your device folder '/opt/awscam/artifacts' and remove everything from it. Then re-deploy your project 
-again.
+again. <br/>
+
+Feel free to ask questions. You may contact me via e-mail address exposed in profile.
