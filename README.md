@@ -10,7 +10,7 @@ It's rather simple to forget to release resources or underestimate a price of la
 a few hundred dollars.
 I assume, that you already set up your AWS account, registered DeepLens device, and played with example projects. So, I 
 won't explain the basics.<br/>
-<strong>In this example, I'm focusing on the most interesting part (imho) - collect and prepare train data. All examples, I 
+<strong>In this example, I'm focusing on the most interesting part (imho) - collect and prepare training data. All examples, I 
 saw, ignore this important step.</strong>
 
 # Our goal
@@ -28,7 +28,7 @@ The simplest way to do that, capture frames one by one from the <b>project strea
 Deploy pretrained [model](model/patched_model.tar) and [lambda function](function/money-counter-function) to the 
 device.
 It's necessary to increase a 'detection_threshold' in the lambda function to avoid appearance of bounding boxes as we 
-don't need them on train images.
+don't need them on training images.
 
 [bash_scripts](bash_scripts) folder contains helpful scripts, that make work with a device more convenient.<br/>
 Connect to your device using Micro HDMI cable and copy scripts folder.<br/>
@@ -45,7 +45,7 @@ Amazon provides an AWS GroundTruth service for images labeling. It provides the 
 consumed by the training job without of any transformations. Unfortunately, it's pretty expensive and not very usable.
 I recommend singing up to [Labelbox](https://app.labelbox.com), as it has a free trial version. And its result 
 can be transformed using [resize_dataset_300x300.py](dataset/resize_dataset_300x300.py). This script runs locally,
-resizes (not a case) images, and creates a manifest file, that will be used for the training job.<br/>
+resizes (not needed for this example) images, and creates a manifest file, that will be used for the training job.<br/>
 
 The whole sequence looks as follows: 
 - create a new project on Label box for <b>each</b> sub-set of images (1000_front, 1000_back, 2000_front, 2000_back), 
@@ -56,7 +56,7 @@ upload you images and complete labeling
 :information_source: More about manifest file format can be found 
 [here](https://docs.aws.amazon.com/sagemaker/latest/dg/object-detection.html)
 
-### Training Model
+### Model Training
 Instead of using SageMaker Studio, it's more reasonable to start experimenting in 
 [SageMaker Studio Lab](https://studiolab.sagemaker.aws/). It's free of charge, and has all we need. Don't hesitate to
 ask Amazon, to provide you an account.<br/>
