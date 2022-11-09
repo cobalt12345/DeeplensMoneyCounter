@@ -1,6 +1,6 @@
 # Repository description
 Current repository shows, how to deal with Machine Learning and AWS DeepLens edge device.
-It is based on the example project provided by Amazon - ![Amazon SageMaker Object Detection from Scratch](
+It is based on the example project provided by Amazon - [Amazon SageMaker Object Detection from Scratch](
 https://github.com/aws-samples/amazon-sagemaker-object-detection-from-scratch).
 
 The main goal of the repository is to give an introduction, how to prepare your own train data set with AWS DeepLens, 
@@ -25,12 +25,12 @@ preparing and processing data.
 
 ### Collect Images
 The simplest way to do that, capture frames one by one from the <b>project stream</b>.<br/>
-Deploy pretrained ![model](model/patched_model.tar) and ![lambda function](function/money-counter-function) to the 
+Deploy pretrained [model](model/patched_model.tar) and [lambda function](function/money-counter-function) to the 
 device.
 It's necessary to increase a 'detection_threshold' in the lambda function to avoid appearance of bounding boxes as we 
 don't need them on train images.
 
-![bash_scripts](bash_scripts) folder contains helpful scripts, that make work with a device more convenient.<br/>
+[bash_scripts](bash_scripts) folder contains helpful scripts, that make work with a device more convenient.<br/>
 Connect to your device using Micro HDMI cable and copy scripts folder.<br/>
 
 Use 'capture_single_frame.sh' to save frames from device output (project stream) to the file system.
@@ -38,13 +38,13 @@ Use 'capture_single_frame.sh' to save frames from device output (project stream)
 on images.</strong><br/>
 Basically, the more train images you do, the more precise will be predictions of you model.<br/>
 Download images from your device to the local file system, when you're ready.<br/>
-![dataset](dataset) folder contains my images, collected for both sides of two banknotes.
+[dataset](dataset) folder contains my images, collected for both sides of two banknotes.
 
 ### Data Labeling
 Amazon provides an AWS GroundTruth service for images labeling. It provides the result in a format, that can be
 consumed by the training job without of any transformations. Unfortunately, it's pretty expensive and not very usable.
-I recommend singing up to ![Labelbox](https://app.labelbox.com/signin), as it has a free trial version. And its result 
-can be transformed using ![resize_dataset_300x300.py](dataset/resize_dataset_300x300.py). This script runs locally,
+I recommend singing up to [Labelbox](https://app.labelbox.com), as it has a free trial version. And its result 
+can be transformed using [resize_dataset_300x300.py](dataset/resize_dataset_300x300.py). This script runs locally,
 resizes (not a case) images, and creates a manifest file, that will be used for the training job.<br/>
 
 The whole sequence looks as follows: 
@@ -52,16 +52,16 @@ The whole sequence looks as follows:
 upload you images and complete labeling
 - modify script using your data to download data from Labelbox (can be found in the 'Export' section of Label box's UI)
 - execute script for each project and collect resulting data manually to the single manifest file. See: 
-![sg-manifest.manifest](dataset/sg-manifest.manifest)<br/>
+[sg-manifest.manifest](dataset/sg-manifest.manifest)<br/>
 :information_source: More about manifest file format can be found 
-![here](https://docs.aws.amazon.com/sagemaker/latest/dg/object-detection.html)
+[here](https://docs.aws.amazon.com/sagemaker/latest/dg/object-detection.html)
 
 ### Training Model
 Instead of using SageMaker Studio, it's more reasonable to start experimenting in 
-![SageMaker Studio Lab](https://studiolab.sagemaker.aws/). It's free of charge, and has all we need. Don't hesitate to
+[SageMaker Studio Lab](https://studiolab.sagemaker.aws/). It's free of charge, and has all we need. Don't hesitate to
 ask Amazon, to provide you an account.<br/>
 - create and run new environment in 'SageMaker Studio Lab'
-- upload ![notebook](notebook/MoneyCounter.ipynb) and ![incubator.tar.gz.part*](notebook)
+- upload [notebook](notebook/MoneyCounter.ipynb) and [incubator.tar.gz.part*](notebook)
 - create new Terminal: File -> New -> Terminal
 - join archive parts: cat incubator.tar.gz.parta* > incubator.tar.gz
 - extract incubator: tar -xzf incubator.tar.gz
@@ -74,7 +74,7 @@ see any bounding boxes, because the 'confidence_score' will be always lower than
 
 ## Troubleshooting 
 Useful information can be found in AWS article 
-![Logging and Troubleshooting Your AWS DeepLens Project](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-logging-and-troubleshooting.html)
+[Logging and Troubleshooting Your AWS DeepLens Project](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-logging-and-troubleshooting.html)
 <br/>
 :warning: Every time you change your Lambda function or re-train the model, don't forget to publish a new version of your 
 function, re-import model, and update AWS DeepLens project before its re-deployment to the device.<br/>
